@@ -169,7 +169,7 @@ section {
 /* SKILLS */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 .skill-card {
@@ -280,12 +280,16 @@ footer {
 }
 
 /* RESPONSIVE */
+@media (max-width: 768px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 640px) {
   nav .nav-links { gap: 16px; }
   nav .nav-links a { font-size: 0.75rem; }
   section { padding: 60px 20px; }
   .volunteer-card { flex-direction: column; }
   .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -360,7 +364,7 @@ footer {
   </div>
 </section>
 
-<!-- SKILLS -->
+<!-- SKILLS (ORIGINAL 4 + 2 NEW CARDS) -->
 <section id="skills">
   <p class="section-label">What I bring</p>
   <h2 class="section-title">Technical skills meet<br>real-world experience</h2>
@@ -375,17 +379,28 @@ footer {
     <div class="skill-card">
       <div class="skill-icon">&#9638;</div>
       <h3>Data & Automation</h3>
-      <p>SQL/MySQL, Excel/Google Sheets, pandas. Cleaning messy data, automating repetitive tasks, building reliable pipelines.</p>
+      <p>SQL/MySQL, PostgreSQL, Excel/Google Sheets, pandas. Cleaning messy data, automating repetitive tasks, building reliable pipelines.</p>
     </div>
     <div class="skill-card">
       <div class="skill-icon">&#9881;</div>
       <h3>AI & Cloud</h3>
-      <p>Microsoft Azure AI Fundamentals (AI-900) certified. Understanding of AI/ML concepts and cloud service architecture.</p>
+      <p>Microsoft Azure AI Fundamentals (AI-900) certified. Understanding of AI/ML concepts, prompt engineering, and cloud architecture.</p>
     </div>
     <div class="skill-card">
       <div class="skill-icon">&#9733;</div>
       <h3>Process & Methodology</h3>
       <p>Agile/SCRUM, sprint planning, user story delivery. Turning complex requirements into working features on schedule.</p>
+    </div>
+    <!-- 2 NEW CARDS ADDED -->
+    <div class="skill-card">
+      <div class="skill-icon">&#127760;</div>
+      <h3>Languages & Communication</h3>
+      <p>Korean (Native), English (Professional). Cross-cultural communication honed through international work in South Korea, UK, and New Zealand.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9992;</div>
+      <h3>Professional & Service</h3>
+      <p>Customer service excellence, business management, safety & compliance. Real operational experience across aviation, fitness, and education sectors.</p>
     </div>
   </div>
 </section>
@@ -478,7 +493,7 @@ footer {
 </section>
 
 <footer>
-  <p>&copy; 2025 Hye (HyeJin) Park &middot; Christchurch, New Zealand</p>
+  <p>&copy; 2026 Hye (HyeJin) Park &middot; Christchurch, New Zealand</p>
 </footer>
 
 <script>
