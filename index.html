@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hye (HyeJin) Park — Applied Computing & Automation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a;
+  --paper: #faf9f6;
+  --stone: #e8e6e1;
+  --warm: #c5a880;
+  --accent: #2e6b62;
+  --accent-light: #e8f0ee;
+  --muted: #6b6560;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.7;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  background: rgba(250,249,246,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stone);
+  transition: transform 0.3s;
+}
+nav .nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 32px;
+}
+nav .logo {
+  font-family: var(--serif); font-size: 1.15rem; color: var(--ink);
+  text-decoration: none; letter-spacing: -0.02em;
+}
+nav .nav-links { display: flex; gap: 28px; list-style: none; }
+nav .nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 0.85rem;
+  font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 120px 32px 80px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(46,107,98,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(197,168,128,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-content { max-width: 720px; text-align: center; position: relative; }
+.hero-label {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 6px 16px; border-radius: 50px;
+  margin-bottom: 32px;
+  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 4.2rem);
+  line-height: 1.15; letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 em {
+  font-style: normal; color: var(--accent);
+  position: relative;
+}
+.hero h1 em::after {
+  content: '';
+  position: absolute; bottom: 4px; left: 0; right: 0;
+  height: 8px; background: rgba(46,107,98,0.15); border-radius: 4px;
+}
+.hero p {
+  font-size: 1.1rem; color: var(--muted); max-width: 540px; margin: 0 auto 40px;
+  font-weight: 300; line-height: 1.8;
+  opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+}
+.hero-cta {
+  display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 50px; font-size: 0.88rem;
+  font-weight: 500; text-decoration: none; transition: all 0.3s;
+  font-family: var(--sans);
+}
+.btn-primary {
+  background: var(--accent); color: #fff; border: none;
+}
+.btn-primary:hover { background: #245a53; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,107,98,0.25); }
+.btn-outline {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--stone);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+/* SECTIONS */
+section {
+  max-width: 1100px; margin: 0 auto;
+  padding: 100px 32px;
+}
+.section-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 1.05rem; color: var(--muted); max-width: 600px;
+  font-weight: 300; line-height: 1.8; margin-bottom: 48px;
+}
+
+/* STORY TIMELINE */
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 8px; top: 12px; bottom: 12px;
+  width: 2px; background: linear-gradient(to bottom, var(--accent), var(--warm));
+  border-radius: 1px;
+}
+.timeline-item {
+  position: relative; margin-bottom: 40px;
+  opacity: 0; transform: translateY(20px);
+  transition: all 0.6s;
+}
+.timeline-item.visible { opacity: 1; transform: translateY(0); }
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -36px; top: 8px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--paper); border: 2.5px solid var(--accent);
+}
+.timeline-date {
+  font-size: 0.75rem; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px;
+}
+.timeline-role { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 4px; }
+.timeline-place { font-size: 0.88rem; color: var(--muted); margin-bottom: 8px; }
+.timeline-desc { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.skill-card {
+  background: #fff;
+  border: 1px solid var(--stone);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+}
+.skill-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+.skill-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 16px;
+  background: var(--accent-light); color: var(--accent);
+}
+.skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.skill-card p { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.project-card {
+  background: #fff;
+  border: 1px solid var(--stone);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+}
+.project-thumb {
+  height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.project-thumb.t1 { background: linear-gradient(135deg, #e8f0ee 0%, #d4e5e1 100%); }
+.project-thumb.t2 { background: linear-gradient(135deg, #ede8f5 0%, #ddd5ed 100%); }
+.project-thumb.t3 { background: linear-gradient(135deg, #faece7 0%, #f5ddd3 100%); }
+.project-thumb.t4 { background: linear-gradient(135deg, #faeeda 0%, #f5e4c5 100%); }
+.project-body { padding: 24px; }
+.project-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+.project-body p { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.6; margin-bottom: 16px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em;
+  padding: 4px 12px; border-radius: 50px;
+  background: var(--accent-light); color: var(--accent);
+}
+
+/* VOLUNTEER */
+.volunteer-card {
+  background: #fff;
+  border: 1px solid var(--stone);
+  border-radius: 16px;
+  padding: 36px;
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.vol-icon {
+  width: 56px; height: 56px; min-width: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent-light), #d4e5e1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+}
+.vol-content h3 { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 4px; }
+.vol-content .vol-meta { font-size: 0.82rem; color: var(--accent); font-weight: 500; margin-bottom: 10px; }
+.vol-content p { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+/* CONTACT */
+.contact-section {
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--stone);
+  border-radius: 24px;
+  padding: 64px 32px;
+  margin-bottom: 80px;
+}
+.contact-links {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin-top: 32px;
+}
+.contact-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 50px;
+  background: var(--accent-light); color: var(--accent);
+  text-decoration: none; font-size: 0.88rem; font-weight: 500;
+  transition: all 0.3s;
+}
+.contact-link:hover { background: var(--accent); color: #fff; }
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 32px;
+  font-size: 0.8rem; color: var(--muted);
+  border-top: 1px solid var(--stone);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  nav .nav-links { gap: 16px; }
+  nav .nav-links a { font-size: 0.75rem; }
+  section { padding: 60px 20px; }
+  .volunteer-card { flex-direction: column; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">HyeJin Park</a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-label">Applied Computing &bull; AI &bull; Automation</span>
+    <h1>Turning real-world<br>operations into<br><em>smarter systems</em></h1>
+    <p>Postgraduate student at Lincoln University with a career spanning airline service, entrepreneurship, and community engagement. I build practical solutions that make work easier.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        View projects
+      </a>
+      <a href="#contact" class="btn btn-outline">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <p class="section-label">My journey</p>
+  <h2 class="section-title">Every step built something<br>I use today</h2>
+  <p class="section-desc">My path from English literature to applied computing isn't random — it's a story of discovering how technology can solve the operational problems I experienced firsthand.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <p class="timeline-date">Keimyung University, South Korea</p>
+      <h3 class="timeline-role">Bachelor of Arts in English Language & Literature</h3>
+      <p class="timeline-place">Foundation in cross-cultural communication</p>
+      <p class="timeline-desc">Built strong communication skills across cultures — the foundation for everything that followed, including my work in international environments and now in New Zealand.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-date">2005 &mdash; Bournemouth, United Kingdom</p>
+      <h3 class="timeline-role">Marketing, PR & English Studies Certificate</h3>
+      <p class="timeline-place">M.L.S. International (British Council Accredited)</p>
+      <p class="timeline-desc">First international experience. Studied marketing and professional English communication in the UK, building global perspective.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-date">2018 &mdash; 2022 &middot; South Korea</p>
+      <h3 class="timeline-role">Founder & Operations Manager</h3>
+      <p class="timeline-place">Yoga Studio</p>
+      <p class="timeline-desc">Built a business from the ground up. Managed scheduling, client records, finances, and daily operations. This is where I first felt the pain of repetitive manual work — and started thinking about better systems.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-date">2023 &mdash; 2024</p>
+      <h3 class="timeline-role">Customer Service Representative</h3>
+      <p class="timeline-place">Korean Air Customer Service Centre</p>
+      <p class="timeline-desc">Worked in a highly regulated environment where data accuracy and strict procedures were critical. Strengthened my attention to detail and bilingual communication.</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-date">2024 &mdash; Present &middot; Christchurch, NZ</p>
+      <h3 class="timeline-role">Master of Applied Computing</h3>
+      <p class="timeline-place">Lincoln University, New Zealand</p>
+      <p class="timeline-desc">Now bringing it all together — learning Flask, Python, SQL, and Agile/SCRUM to build the practical solutions I always wished I had. Microsoft AI-900 certified.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">What I bring</p>
+  <h2 class="section-title">Technical skills meet<br>real-world experience</h2>
+  <p class="section-desc">My unique combination: I understand the user's pain because I've been the user — and now I have the tools to fix it.</p>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">&lt;/&gt;</div>
+      <h3>Development</h3>
+      <p>Python, Flask, HTML/CSS, JavaScript, Git & GitHub. Building full-stack web applications with clean, documented code.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9638;</div>
+      <h3>Data & Automation</h3>
+      <p>SQL/MySQL, Excel/Google Sheets, pandas. Cleaning messy data, automating repetitive tasks, building reliable pipelines.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9881;</div>
+      <h3>AI & Cloud</h3>
+      <p>Microsoft Azure AI Fundamentals (AI-900) certified. Understanding of AI/ML concepts and cloud service architecture.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9733;</div>
+      <h3>Process & Methodology</h3>
+      <p>Agile/SCRUM, sprint planning, user story delivery. Turning complex requirements into working features on schedule.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Portfolio</p>
+  <h2 class="section-title">Projects that prove<br>what I can build</h2>
+  <p class="section-desc">Each project demonstrates a different skill set — from team collaboration to solo automation to AI integration.</p>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-thumb t1">&#128477;</div>
+      <div class="project-body">
+        <h3>Pest Management Web App</h3>
+        <p>Full-stack Flask application built in a 5-person SCRUM team at Lincoln University. CRUD operations for trap lines, traps, and operator assignments with role-based access control.</p>
+        <div class="project-tags">
+          <span class="tag">Flask</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">SCRUM</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb t2">&#128202;</div>
+      <div class="project-body">
+        <h3>Data Cleaning Automation</h3>
+        <p>Python tool that takes messy CSV/Excel files and automatically removes duplicates, standardises formats, and generates clean reports. Built from real operational pain points.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">pandas</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb t3">&#129302;</div>
+      <div class="project-body">
+        <h3>Council Info AI Chatbot</h3>
+        <p>AI-powered chatbot that answers citizen questions using council FAQ data. Demonstrates practical application of AI-900 knowledge with a user-friendly Flask interface.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">AI API</span>
+          <span class="tag">Flask</span>
+          <span class="tag">NLP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <p class="section-label">Community</p>
+  <h2 class="section-title">Building roots in<br>Christchurch</h2>
+  <p class="section-desc">I'm not just studying here — I'm building my life here. Contributing to the community that's becoming my home.</p>
+
+  <div class="volunteer-card">
+    <div class="vol-icon">&#9881;</div>
+    <div class="vol-content">
+      <h3>Referee — FIRST Lego League Christchurch</h3>
+      <p class="vol-meta">FIRST NZ &bull; October 2025 &bull; Lincoln Events Centre</p>
+      <p>Volunteered as a competition referee judging robotics missions for 20+ teams and 120+ young competitors. Applied structured rubrics to evaluate team performance, contributing to STEM education in the Canterbury region.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-section">
+    <p class="section-label">Let's connect</p>
+    <h2 class="section-title">Ready to contribute to<br>your team</h2>
+    <p class="section-desc" style="margin: 12px auto 0;">I'm seeking opportunities in automation, data support, and business analysis roles in the Christchurch area. Let's talk about how I can help your team work smarter.</p>
+    <div class="contact-links">
+      <a href="mailto:actionoptimist2023@gmail.com" class="contact-link">
+        &#9993; actionoptimist2023@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/hye-park-nz" target="_blank" class="contact-link">
+        in &nbsp;LinkedIn
+      </a>
+      <a href="#" class="contact-link">
+        &#128196; Download CV
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Hye (HyeJin) Park &middot; Christchurch, New Zealand</p>
+</footer>
+
+<script>
+// Scroll animation for timeline items
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
